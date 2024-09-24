@@ -1,13 +1,13 @@
-# MoneyWise Web Application by Byte Builders
+# FinLog Web Application by Akatsuki
 
-Ini adalah proyek MoneyWise, sebuah aplikasi web yang dibangun menggunakan framework Laravel oleh Byte Builders. Aplikasi ini dirancang untuk membantu pengguna dalam mengelola keuangan mereka dengan mudah dan efisien.
+Ini adalah proyek Finlog, sebuah aplikasi web yang dibangun menggunakan framework Laravel oleh Akatsuki. Aplikasi ini dirancang untuk membantu pengguna dalam mengelola keuangan mereka dengan mudah dan efisien.
 
 ## Cara Menjalankan Aplikasi
 
-Berikut langkah-langkah untuk menjalankan aplikasi MoneyWise di lingkungan pengembangan Anda:
+Berikut langkah-langkah untuk menjalankan aplikasi FinLog di lingkungan pengembangan Anda:
 
 1. **Clone Repository**:
-git clone https://github.com/Duwianjar/ByteBuilders.git
+git clone https://github.com/Duwianjar/FinLog.git
 1.1. **Atau bisa juga download ZIP**
 
 
