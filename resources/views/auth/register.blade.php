@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MoneyWise - Register</title>
+<title>FinLog - Register</title>
 <link rel="icon" type="image/x-icon" href="{{ asset('assets/icon/mw.png') }}">
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">

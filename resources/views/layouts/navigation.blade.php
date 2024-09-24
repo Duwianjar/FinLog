@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark px-4">
     <a class="navbar-brand" href="{{ route('dashboard') }}">
         <img src="{{ asset('assets/icon/mw.png') }}" width="35" height="35" class="d-inline-block align-top" alt="mw Icon">
-        <span id="text-brand" class="text-white">MoneyWise</span>
+        <span id="text-brand" class="text-white">FinLog</span>
     </a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

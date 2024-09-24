@@ -5,18 +5,18 @@
 }
 
 .text-gradient {
-    background: linear-gradient(to right, #ff8a00, #e52e71);
+    background: linear-gradient(to right, #315cac, #8f31ac);
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .navbar {
-    background: linear-gradient(to right, #ff8a00, #e52e71);
+    background: linear-gradient(to right, #315cac, #8f31ac);
 }
 
 .dropdown-menu {
     border: transparent;
-    background: linear-gradient(to right, #ff8a00, #e52e71);
+    background: linear-gradient(to right, #315cac, #8f31ac);
 }
 .dropdown-item{
     color:white;
@@ -74,7 +74,7 @@ main {
 }
 
 .btn-primary {
-    background: linear-gradient(to right, #e52e71, #ff8a00, #e52e71);
+    background: linear-gradient(to right, #8f31ac, #315cac, #8f31ac);
     border-color: transparent;
     background-size: 200% auto;
     cursor: pointer;

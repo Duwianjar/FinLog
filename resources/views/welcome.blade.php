@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoneyWise</title>
+    <title>FinLog</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/icon/mw.png') }}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
-    
+
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark px-4">
             <a class="navbar-brand" href="#">
                 <img src="{{ asset('assets/icon/mw.png') }}" width="35" height="35" class="d-inline-block align-top" alt="mw Icon">
-                <span id="text-brand" class="text-white">MoneyWise</span>
+                <span id="text-brand" class="text-white">FinLog</span>
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,12 +46,12 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-6 px-5">
-                        <h1 class="text-primary font-weight-bold text-gradient typing-animation text-title">Welcome to MoneyWise</h1>
-                        <p class="text-secondary animation-text">MoneyWise is your personal money management tool designed to help you keep track of your finances easily and effectively.</p>
+                        <h1 class="text-primary font-weight-bold text-gradient typing-animation text-title">Welcome to FinLog</h1>
+                        <p class="text-secondary animation-text">FinLog is your personal money management tool designed to help you keep track of your finances easily and effectively.</p>
                         <a href="/login" class="btn btn-primary btn-lg ">Get Started</a>
                     </div>
                     <div class="col-lg-6 ">
-                        <img src="{{ asset('assets/img/finance.png') }}" alt="MoneyWise App" class="img-fluid">
+                        <img src="{{ asset('assets/img/finance.png') }}" alt="FinLog App" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -62,11 +62,11 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div id="image-aboute" class="col-lg-6 order-lg-1 order-2">
-                        <img src="{{ asset('assets/img/finance2.png') }}" class="img-fluid rounded-circle" alt="MoneyWise Image">
+                        <img src="{{ asset('assets/img/finance2.png') }}" class="img-fluid rounded-circle" alt="FinLog Image">
                     </div>
                     <div id="title-about" class="col-lg-6 order-lg-2 order-1 px-5">
-                        <h1 class="section-title gradient-secondary mt-5">About MoneyWise</h1>
-                        <p class="section-description text-muted">MoneyWise was created to address the common challenges people face in managing their personal finances. Our goal is to provide an easy-to-use platform that helps users track their income, expenses, and savings, and make informed financial decisions.</p>
+                        <h1 class="section-title gradient-secondary mt-5">About FinLog</h1>
+                        <p class="section-description text-muted">FinLog was created to address the common challenges people face in managing their personal finances. Our goal is to provide an easy-to-use platform that helps users track their income, expenses, and savings, and make informed financial decisions.</p>
                         <a href="#" class="btn btn-secondary">Need Help</a>
                     </div>
                 </div>
@@ -77,7 +77,7 @@
 
         <section id="benefits" class="section bg-light">
             <div class="container">
-                <h2 class="mt-5 text-center gradient-secondary">Benefits of Using MoneyWise</h2>
+                <h2 class="mt-5 text-center gradient-secondary">Benefits of Using FinLog</h2>
                 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <ul class="list-group list-group-flush mt-4">
@@ -104,7 +104,7 @@
                 </div>
             </div>
         </section>
-        
+
     </main>
     <footer class="bg-light py-3 mt-5">
         <div class="container text-center">
