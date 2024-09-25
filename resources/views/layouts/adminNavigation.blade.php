@@ -12,6 +12,9 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
+                <a class="nav-link text-white mx-2 menu" href="{{ url('story') }}">Story</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link text-white mx-2" href="{{ route('dashboard') }}">Home</a>
             </li>
             @if(Auth::user()->role != "admin")

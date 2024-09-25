@@ -12,13 +12,16 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link text-white mx-2" href="{{ route('dashboard') }}">Home</a>
+                <a class="nav-link text-white mx-2 menu" href="{{ url('story') }}">Story</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white mx-2" href="{{ route('earning') }}">Earning</a>
+                <a class="nav-link text-white mx-2 menu" href="{{ route('dashboard') }}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-white mx-2" href="{{ route('expenses') }}">Expenses</a>
+                <a class="nav-link text-white mx-2 menu" href="{{ route('earning') }}">Earning</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white mx-2 menu" href="{{ route('expenses') }}">Expenses</a>
             </li>
             <li class="nav-item dropdown profil-nav">
                 <a class="nav-link dropdown-toggle text-white mx-2" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
