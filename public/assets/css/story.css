@@ -1,0 +1,271 @@
+body {
+    font-family: sans-serif;
+  }
+
+  .container {
+    width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .img-avatar {
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+      margin: 0 auto;
+      z-index: 1;
+      position: relative;
+  }
+
+  .user-name {
+    font-weight: bold;
+  }
+
+  .comment-box {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+  }
+
+  .comment-tools {
+    display: flex;
+    justify-content: end;
+    margin-top: 10px;
+  }
+
+
+  .custom-select {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 220px; /* adjust the width as needed */
+      font-size: 16px;
+      color: #333;
+  }
+
+  .btn-primary {
+      color: white;
+      padding: 5px 20px;
+      border-radius: 5px;
+  }
+
+  .file-input-container {
+  margin-top: 10px;
+  margin-bottom: -20px;
+  position: relative;
+  display: inline-block;
+  }
+
+  .file-input-container input[type="file"] {
+  display: none;
+  }
+
+  .file-input-container label {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  }
+
+  .file-input-container label:hover {
+      background-color: #f0f0f0;
+  }
+
+  .file-input-container i {
+      margin-right: 10px;
+  }
+  .icon-delete {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+  }
+
+  .icon-delete:before {
+      content: "\2715"; /* Unicode character for a cross icon */
+      font-size: 18px;
+      color: red;
+   }
+
+  .message {
+      display: block;
+      opacity: 1;
+      animation: hideMessage 15s forwards;
+  }
+
+  @keyframes hideMessage {
+      0% {
+          opacity: 1;
+      }
+      99.9% {
+          opacity: 1;
+      }
+      100% {
+          opacity: 0;
+          display: none;
+      }
+  }
+
+  .post {
+border: 1px solid #ccc;
+padding: 15px;
+margin-bottom: 15px;
+}
+
+.post-info {
+display: flex;
+align-items: center;
+margin-bottom: 10px;
+}
+
+
+.post-actions {
+margin-top: 10px;
+text-align: right;
+}
+
+.post-actions ul {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+.post-actions li {
+display: inline-block;
+margin-left: 10px;
+}
+
+.post-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -20px;
+  }
+  .img-avatar-post {
+      width: 90%;
+      height: 90%;
+      border-radius: 50%;
+      margin: 0 auto;
+      z-index: 1;
+      position: relative;
+  }
+
+  .post-user h5 {
+      margin-bottom: -2px;
+  }
+
+  hr {
+border: none;
+height: 0.5px;
+background-color: #333;
+margin: 20px 0;
+box-shadow: 0 1px 0 rgba(97, 94, 94, 0.1);
+}
+
+.post-photo {
+text-align: start; /* center the image horizontally */
+}
+
+.post-photo img {
+max-width: 50%; /* make the image fit within the div */
+height: auto; /* maintain the image's aspect ratio */
+border-radius: 10px; /* add a slight border radius for a nicer look */
+margin: 10px; /* add some margin around the image */
+}
+
+.write {
+
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.search{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    padding: 10px;
+    flex: 1;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+
+
+  .btn-search {
+    padding: 10px 20px!important;
+    border: none !important;
+    border-radius: 0 5px 5px 0!important;
+    cursor: pointer !important;
+  }
+
+.hidden p {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .dropdown {
+  display: flex;
+  justify-content: flex-end;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {background-color: #f1f1f1}
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropbtn {
+    background-color: transparent;
+    color: #000000;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .dropdown:hover .dropbtn {
+    background-color: #f1f1f1;
+  }

@@ -2,202 +2,11 @@
 
 @push('css')
 <link rel="stylesheet" href="{{ asset('assets/css/depository.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/story.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 @endpush
 @section('content')
-  <style>
-    body {
-      font-family: sans-serif;
-    }
-
-    .container {
-      width: 500px;
-      margin: 50px auto;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    .user-info {
-      display: flex;
-      align-items: center;
-    }
-
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-    .img-avatar {
-        width: 100%;
-        height: auto;
-        border-radius: 50%;
-        margin: 0 auto;
-        z-index: 1;
-        position: relative;
-    }
-
-    .user-name {
-      font-weight: bold;
-    }
-
-    .comment-box {
-      margin-top: 20px;
-      border: 1px solid #ccc;
-      padding: 10px;
-      border-radius: 5px;
-      width: 100%;
-    }
-
-    .comment-tools {
-      display: flex;
-      justify-content: end;
-      margin-top: 10px;
-    }
-
-
-    .custom-select {
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 220px; /* adjust the width as needed */
-        font-size: 16px;
-        color: #333;
-    }
-
-    .btn-primary {
-        color: white;
-        padding: 5px 20px;
-        border-radius: 5px;
-    }
-
-    .file-input-container {
-    margin-top: 10px;
-    margin-bottom: -20px;
-    position: relative;
-    display: inline-block;
-    }
-
-    .file-input-container input[type="file"] {
-    display: none;
-    }
-
-    .file-input-container label {
-    display: inline-block;
-    padding: 10px 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-    }
-
-    .file-input-container label:hover {
-        background-color: #f0f0f0;
-    }
-
-    .file-input-container i {
-        margin-right: 10px;
-    }
-    .icon-delete {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-    }
-
-    .icon-delete:before {
-        content: "\2715"; /* Unicode character for a cross icon */
-        font-size: 18px;
-        color: #red;
-    }
-
-    .message {
-        display: block;
-        opacity: 1;
-        animation: hideMessage 1s forwards;
-    }
-
-    @keyframes hideMessage {
-        0% {
-            opacity: 1;
-        }
-        99.9% {
-            opacity: 1;
-        }
-        100% {
-            opacity: 0;
-            display: none;
-        }
-    }
-
-    .post {
-  border: 1px solid #ccc;
-  padding: 15px;
-  margin-bottom: 15px;
-}
-
-.post-info {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-
-.post-actions {
-  margin-top: 10px;
-  text-align: right;
-}
-
-.post-actions ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.post-actions li {
-  display: inline-block;
-  margin-left: 10px;
-}
-
-.post-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      margin-right: 10px;
-      margin-top: -20px;
-    }
-    .img-avatar-post {
-        width: 100%;
-        height: auto;
-        border-radius: 50%;
-        margin: 0 auto;
-        z-index: 1;
-        position: relative;
-    }
-
-    .post-user h5 {
-        margin-bottom: -2px;
-    }
-
-    hr {
-  border: none;
-  height: 0.5px;
-  background-color: #333;
-  margin: 20px 0;
-  box-shadow: 0 1px 0 rgba(97, 94, 94, 0.1);
-}
-
-.post-photo {
-  text-align: start; /* center the image horizontally */
-}
-
-.post-photo img {
-  max-width: 50%; /* make the image fit within the div */
-  height: auto; /* maintain the image's aspect ratio */
-  border-radius: 10px; /* add a slight border radius for a nicer look */
-  margin: 10px; /* add some margin around the image */
-}
-  </style>
 
  <div class="container-depository">
     @if(session('success-story'))
@@ -219,14 +28,15 @@
                 <img src="{{ asset('assets/img/user.png') }}" alt="user" class="img-avatar">
             @endif
         </div>
-        <div class="user-name">{{ Auth::user()->name }}</div>
-        <select class="mx-2 custom-select" name="allow_comments">
+        <input id="write" class="write" placeholder="Write your story here...">
+        <div id="name" class="user-name d-none">{{ Auth::user()->name }}</div>
+        <select id="story-comment" class="mx-2 custom-select d-none" name="allow_comments">
             <option value="1">Everyone can comment</option>
             <option value="0">No one can comment</option>
         </select>
         </div>
         <!-- HTML -->
-        <div class="file-input-container">
+        <div id="story-image" class="file-input-container d-none">
             <input type="file" id="image-input" name="photo" accept="image/*" max-size="2048">
             <label for="image-input">
                 <i class="fas fa-file-image"></i>
@@ -238,18 +48,103 @@
                 <span id="delete-icon" class="icon-delete"></span> <!-- Add this icon element -->
             </div>
         </div>
-        <textarea name="caption" class="comment-box" placeholder="Tulis ceritamu kamu disini..."></textarea>
-        <div class="comment-tools">
-        <button class="btn btn-secondary">Cancel</button>
+        <textarea id="story-caption" name="caption" class="comment-box d-none" placeholder="Write your story here..."></textarea>
+        <div id="story-button" class="comment-tools d-none">
+        <button id="story-cancel" type="button" class="btn btn-secondary">Cancel</button>
         <button type="submit" class="btn btn-primary mx-2">Post</button>
         </div>
     </form>
     <div class="post mt-4">
+        <form action="{{ route('story.search') }}" method="post">
+            @csrf
+            <div class="search-container">
+                <input class="search" type="text" placeholder="Search for story" name="search">
+                <button class="btn-primary btn-search">Search</button>
+            </div>
+        </form>
         @foreach ($stories as $story )
-            <div class="post-info">
+            @if ($story->id_user == Auth::user()->id)
+            <div class="dropdown">
+                <button class="dropbtn">&#8942;</button>
+                <div class="dropdown-content">
+                    <!-- Button to trigger modal -->
+                    <a data-toggle="modal" data-target="#exampleModal-{{ $story->id }}">
+                        &#9998; Edit
+                    </a>
+                    <a data-toggle="modal" data-target="#exampleModaldelete-{{ $story->id }}" class="text-danger">&#x1F5D1; Delete</a>
+                </div>
+            </div>
+            @endif
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal-{{$story->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form  method="POST" action="{{ route('story.update', $story->id) }}">
+                            @csrf
+                            @method('PUT')
+                        <div class="modal-body">
+                            <select id="edit-comment" class="mx-2 custom-select" style="margin-bottom: 10px;" name="allow_comments">
+                                @if ($story->allow_comments)
+                                <option value="1">Everyone can comment</option>
+                                <option value="0">No one can comment</option>
+                                @else
+                                <option value="0">No one can comment</option>
+                                <option value="1">Everyone can comment</option>
+                                @endif
+                            </select>
+                            <textarea class="form-control" style="margin-left: 8px;" id="textarea" rows="5" cols="30" name="caption" @if ($story->count_update > 4)
+                                readonly
+                            @endif>{{ $story->caption }}</textarea>
+                            <p style="margin-left: 8px; margin-top: 5px; font-size: 0.8em; color: rgb(86, 86, 86);" class=" @if ($story->count_update > 4)
+                                text-danger
+                            @elseif ($story->count_update > 2)
+                            text-warning
+                            @endif "">Caption can be edited {{ 5 - $story->count_update }} more times</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+             <!-- Modal Delete -->
+            <div class="modal fade" id="exampleModaldelete-{{$story->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form action="{{ route('story.destroy', $story->id) }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmDeleteModalLabel">Are you sure you want to delete your story?</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+        
+                            <div class="modal-body">
+                                <p>Once this story is deleted, all its resources and data will be permanently deleted.</p>
+                            </div>
+        
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="post-info" @if ($story->id_user == Auth::user()->id) style="margin-top: -30px;" @endif>
                 <div class="post-avatar">
                     @if ($story->user->photo != null)
-                        <img src="{{ asset(Auth::user()->photo) }}" alt="user" class="img-avatar-post">
+                        <img src="{{ asset($story->user->photo) }}" alt="user" class="img-avatar-post">
                     @else
                         <img src="{{ asset('assets/img/user.png') }}" alt="user" class="img-avatar-post">
                     @endif
@@ -258,6 +153,7 @@
                     <h5>{{ $story->user->name }}</h5>
                     <p><small>{{ $story->created_at->format('j M y, g:i') }}</small></p>
                 </div>
+
             </div>
             <div class="post-content">
                 <p>{{  $story->caption }}</p>
@@ -275,6 +171,12 @@
             </div>
             <hr>
         @endforeach
+        <!-- Add pagination links -->
+        {{ $stories->links() }}
+        <!-- Handle the case where there are no stories -->
+        @if ($stories->isEmpty())
+            <p>No stories found.</p>
+        @endif
     </div>
 </div>
 @endsection
@@ -328,5 +230,56 @@ textarea.addEventListener('input', (e) => {
     e.target.value = inputValue.replace(/[^a-zA-Z0-9,._\-()\s]/g, '');
   }
 });
+
+// Select all elements with aria-label "Pagination Navigation"
+const paginationContainers = document.querySelectorAll('[aria-label="Pagination Navigation"]');
+
+// Loop through each container and hide the SVG elements inside
+paginationContainers.forEach(container => {
+  const svgs = container.querySelectorAll('svg');
+  svgs.forEach(svg => {
+    svg.style.display = 'none';
+  });
+});
+
+
+const url = window.location.href;
+if (url.includes('/search')) {
+  const paginationNav = document.querySelector('[aria-label="Pagination Navigation"]');
+  paginationNav.style.display = 'none';
+}
+
+</script>
+<script>
+    const writeInput = document.getElementById('write');
+
+    writeInput.addEventListener('focus', function() {
+        this.classList.add('d-none');
+        document.getElementById('story-button').classList.remove('d-none');
+        document.getElementById('story-caption').classList.remove('d-none');
+        document.getElementById('story-image').classList.remove('d-none');
+        document.getElementById('story-comment').classList.remove('d-none');
+        document.getElementById('name').classList.remove('d-none');
+    });
+
+    writeInput.addEventListener('click', function() {
+        this.classList.add('d-none');
+        document.getElementById('story-button').classList.remove('d-none');
+        document.getElementById('story-caption').classList.remove('d-none');
+        document.getElementById('story-image').classList.remove('d-none');
+        document.getElementById('story-comment').classList.remove('d-none');
+        document.getElementById('name').classList.remove('d-none');
+    });
+
+    const cancel = document.getElementById('story-cancel');
+
+    cancel.addEventListener('click', function() {
+        writeInput.classList.remove('d-none');
+        document.getElementById('story-button').classList.add('d-none');
+        document.getElementById('story-caption').classList.add('d-none');
+        document.getElementById('story-image').classList.add('d-none');
+        document.getElementById('story-comment').classList.add('d-none');
+        document.getElementById('name').classList.add('d-none');
+    });
 </script>
 @endpush

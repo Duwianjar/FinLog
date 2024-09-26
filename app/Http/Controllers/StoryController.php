@@ -19,7 +19,7 @@ class StoryController extends Controller
     {
         $depositoried = Depository::where('id_user', Auth::user()->id)->get();
         $user = Auth::user();
-        $stories = story::all();
+        $stories = Story::latest()->paginate(5); // 10 items per page
         return view('story.index', compact('depositoried', 'user', 'stories'));
     }
 
@@ -62,15 +62,14 @@ class StoryController extends Controller
 
                 // Simpan perubahan pada objek pengguna
                 Story::create($validatedData);
-
-                return redirect()->back()->with('success-story', 'Story berhasil dibuat.');
+                return redirect('/story')->with('success-story', 'Story created successfully.');
             } else {
-                return "gagal Mengunggah foto, silahkan upload foto yang benar";
+                return redirect('/story')->with('error-story', 'Failed to upload photo, please upload the correct photo.');
             }
         } else {
             $validatedData['photo'] = '';
             Story::create($validatedData);
-            return redirect()->back()->with('success-story', 'Story berhasil dibuat.');
+            return redirect('/story')->with('success-story', 'Story created successfully.');
         }
     }
 
@@ -79,7 +78,26 @@ class StoryController extends Controller
      */
     public function show(Story $story)
     {
-        //
+
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $depositoried = Depository::where('id_user', Auth::user()->id)->get();
+        $user = Auth::user();
+
+        $stories = Story::where(function ($query) use ($search) {
+            $query->where('caption', 'like', '%' . $search . '%')
+                ->orWhereIn('id_user', function ($query) use ($search) {
+                    $query->select('id')
+                        ->from('users')
+                        ->where('name', 'like', '%' . $search . '%');
+                });
+        })->latest()->paginate(10);
+
+        return view('story.index', compact('depositoried', 'user', 'stories'));
     }
 
     /**
@@ -93,16 +111,35 @@ class StoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Story $story)
+    public function update(Request $request, string $id)
     {
-        //
+
+        $validatedData = $request->validate([
+            'allow_comments' => 'required',
+            'caption' => 'required|max:255'
+        ]);
+
+        $story = Story::findOrFail($id);
+
+        if($story->caption == $validatedData ['caption']){
+            $story->update($validatedData);
+        } else {
+            $validatedData['count_update']=$story->count_update +1;
+            $story->update($validatedData);
+        }
+
+        return redirect('/story')->with('success-story', 'Story updated successfully.');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Story $story)
+    public function destroy(string $id)
     {
-        //
+        $story = Story::findOrFail($id);
+        $story->delete();
+
+        return redirect('/story')->with('success-story', 'Story deleted successfully.');
     }
 }

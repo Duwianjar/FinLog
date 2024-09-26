@@ -12,7 +12,7 @@ class Story extends Model
         'photo',
         'caption',
         'count_update',
-        'allow_coments',
+        'allow_comments',
         'id_user',
     ];
 
