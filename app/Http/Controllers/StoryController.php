@@ -19,7 +19,7 @@ class StoryController extends Controller
     {
         $depositoried = Depository::where('id_user', Auth::user()->id)->get();
         $user = Auth::user();
-        $stories = Story::latest()->paginate(5); // 10 items per page
+        $stories = Story::latest()->paginate(5); 
         return view('story.index', compact('depositoried', 'user', 'stories'));
     }
 
@@ -138,6 +138,8 @@ class StoryController extends Controller
     public function destroy(string $id)
     {
         $story = Story::findOrFail($id);
+        // Delete comments associated with the story
+        $story->comments()->delete();
         $story->delete();
 
         return redirect('/story')->with('success-story', 'Story deleted successfully.');

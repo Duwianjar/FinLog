@@ -17,12 +17,14 @@
             <li class="nav-item">
                 <a class="nav-link text-white mx-2 menu" href="{{ route('dashboard') }}">Home</a>
             </li>
+            @if (Auth::user()->role != "admin")
             <li class="nav-item">
                 <a class="nav-link text-white mx-2 menu" href="{{ route('earning') }}">Earning</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-white mx-2 menu" href="{{ route('expenses') }}">Expenses</a>
             </li>
+            @endif
             <li class="nav-item dropdown profil-nav">
                 <a class="nav-link dropdown-toggle text-white mx-2" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {{ Auth::user()->name }}

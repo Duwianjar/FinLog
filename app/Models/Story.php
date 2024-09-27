@@ -1,5 +1,5 @@
 <?php
-
+// In your Story model
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,5 +22,26 @@ class Story extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'id_user');
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'id_story')->latest();
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($story) {
+            if (!$story->created_at) {
+                $story->created_at = now()->subHours(5);
+            }
+        });
+
+        static::updating(function ($story) {
+            if (!$story->updated_at) {
+                $story->updated_at = now()->subHours(5);
+            }
+        });
     }
 }

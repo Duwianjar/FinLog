@@ -26,6 +26,7 @@
 </div>
 @endif
 <hr>
+@if (Auth::user()->role != "admin")
 <h4 class="text-start">
     Depository
 </h4>
@@ -52,6 +53,8 @@
         <a href="#" data-toggle="modal" data-target="#exampleModal"  class="bank m-2 py-1 px-2 text-white rounded btn btn-secondary col-3" ><i class="fas fa-plus"></i> Add New</a>
 
 </div>
+
+@endif
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

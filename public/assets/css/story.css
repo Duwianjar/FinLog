@@ -170,13 +170,14 @@ margin-left: 10px;
       margin-bottom: -2px;
   }
 
-  hr {
-border: none;
-height: 0.5px;
-background-color: #333;
-margin: 20px 0;
-box-shadow: 0 1px 0 rgba(97, 94, 94, 0.1);
-}
+.garis-story {
+    border: none;
+    height: 1px;
+    background-color: #333;
+    margin: 20px 0;
+    box-shadow: 0 1px 0 rgba(97, 94, 94, 0.1);
+    margin-bottom: 22px !important;
+    }
 
 .post-photo {
 text-align: start; /* center the image horizontally */
@@ -269,3 +270,22 @@ margin: 10px; /* add some margin around the image */
   .dropdown:hover .dropbtn {
     background-color: #f1f1f1;
   }
+
+  .comment-btn {
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  .container-comment {
+    width: 98%;
+    padding: 20px;
+    background-color: rgb(193, 193, 195);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .comment-story{
+    margin-top: -20px;
+    margin-bottom: -20px;
+  }
+

@@ -16,7 +16,7 @@ class ExpensesController extends Controller
         ->where('id_user', Auth::user()->id)
         ->with('category')
         ->paginate(5);
-        
+
         $earns = History::where('transaction', '1')
         ->where('id_user', Auth::user()->id)
         ->with('category')
@@ -33,6 +33,13 @@ class ExpensesController extends Controller
             $chartData['data'][] = $categoryEarnings->sum('amount'); // Sum the amount field
             $chartData['backgroundColor'][] = '#' . substr(md5(rand()), 0, 6); // Generate random color
         }
+
+        if (empty($chartData['labels'])) {
+            $chartData['labels'][] = 'belum ada data';
+            $chartData['data'][] = 1;
+            $chartData['backgroundColor'][] = '#ccc';
+        }
+
         $depositoried = Depository::where('id_user', Auth::user()->id)->get();
         return view('client.expenses', compact(
             'depositoried',
