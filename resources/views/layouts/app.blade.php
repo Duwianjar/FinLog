@@ -17,8 +17,8 @@
             @include('layouts.navigation')
 
             <main>
-            <div class="row px-5 py-4">
-                <div class="col-lg-8">
+            <div id="container-main" class="row px-5 py-4">
+                <div class="col-lg-8 left" style="display: flex; justify-content: center; align-items: center;">
                     @yield('content')
                 </div>
                 <div class="col-lg-4 container-dashboard text-center aside-profile">

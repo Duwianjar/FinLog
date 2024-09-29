@@ -10,6 +10,32 @@ body {
     border-radius: 5px;
   }
 
+  .container-story {
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+    background-color: #fff;
+}
+
+
+
+@media (max-width: 670px) {
+    .container-story {
+        margin: 10px 0px;
+        padding: 10px;
+    }
+    .post-photo img {
+        max-width: 100% !important; /* make the image fit within the div */
+        width: 100% !important;
+        margin: 0px !important;
+        }
+    .left {
+        margin-left: 15px !important;
+    }
+}
+
   .user-info {
     display: flex;
     align-items: center;
@@ -184,7 +210,7 @@ text-align: start; /* center the image horizontally */
 }
 
 .post-photo img {
-max-width: 50%; /* make the image fit within the div */
+max-width: 70%; /* make the image fit within the div */
 height: auto; /* maintain the image's aspect ratio */
 border-radius: 10px; /* add a slight border radius for a nicer look */
 margin: 10px; /* add some margin around the image */
@@ -283,6 +309,15 @@ margin: 10px; /* add some margin around the image */
     border: 1px solid #ccc;
     border-radius: 5px;
   }
+  .container-comment-detail {
+    width: 98%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 5px;
+  }
+
+  
 
   .comment-story{
     margin-top: -20px;

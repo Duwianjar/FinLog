@@ -36,7 +36,7 @@ class CommentController extends Controller
 
         $validatedData['id_user'] = Auth::user()->id;
         Comment::create($validatedData);
-        return redirect('/story')->with('success-story', 'Comment created successfully.');
+        return redirect('/story/'. $validatedData['id_story'] )->with('success-story', 'Comment created successfully.');
     }
 
     /**

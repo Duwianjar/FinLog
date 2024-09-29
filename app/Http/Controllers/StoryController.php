@@ -19,7 +19,7 @@ class StoryController extends Controller
     {
         $depositoried = Depository::where('id_user', Auth::user()->id)->get();
         $user = Auth::user();
-        $stories = Story::latest()->paginate(5); 
+        $stories = Story::latest()->paginate(5);
         return view('story.index', compact('depositoried', 'user', 'stories'));
     }
 
@@ -76,9 +76,12 @@ class StoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Story $story)
+    public function show(string $id)
     {
-
+        $depositoried = Depository::where('id_user', Auth::user()->id)->get();
+        $user = Auth::user();
+        $story = Story::where('id', $id)->first();
+        return view('story.detail', compact('depositoried', 'user', 'story'));
     }
 
     public function search(Request $request)
