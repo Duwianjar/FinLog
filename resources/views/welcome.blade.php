@@ -48,12 +48,12 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-6 px-5">
-                        <h1 class="text-primary font-weight-bold text-gradient typing-animation text-title">Welcome to FinLog</h1>
+                        <h1 class="text-light font-weight-bold typing-animation text-title">Manajemen Keuangan anda <br> dengan <span class="text-gradient">Finlog</span></h1>
                         <p class="text-secondary animation-text">FinLog is your personal money management tool designed to help you keep track of your finances easily and effectively.</p>
                         <a href="/login" class="btn btn-primary btn-lg ">Get Started</a>
                     </div>
                     <div class="col-lg-6 ">
-                        <img src="{{ asset('assets/img/finance.png') }}" alt="FinLog App" class="img-fluid">
+                        <img src="{{ asset('assets/img/finance.png') }}" style="width: 60%;" alt="FinLog App" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -67,8 +67,8 @@
                         <img src="{{ asset('assets/img/finance2.png') }}" class="img-fluid rounded-circle" alt="FinLog Image">
                     </div>
                     <div id="title-about" class="col-lg-6 order-lg-2 order-1 px-5">
-                        <h1 class="section-title gradient-secondary mt-5">About FinLog</h1>
-                        <p class="section-description text-muted">FinLog was created to address the common challenges people face in managing their personal finances. Our goal is to provide an easy-to-use platform that helps users track their income, expenses, and savings, and make informed financial decisions.</p>
+                        <h1 class="section-title text-light mt-5">About <span class="text-gradient">Finlog</span></h1>
+                        <p class="section-description text-light">FinLog was created to address the common challenges people face in managing their personal finances. Our goal is to provide an easy-to-use platform that helps users track their income, expenses, and savings, and make informed financial decisions.</p>
                         <a href="#" class="btn btn-secondary">Need Help</a>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
 
         <section id="benefits">
             <div class="container">
-                <h2 class="mt-5 text-center gradient-secondary">Benefits of Using FinLog</h2>
+                <h2 class="mt-5 text-center text-light">Benefits of Using <span class="text-gradient">Finlog</span></h2>
                 <div class="row justify-content-center">
                     <div class="col-md-4">
                         <ul class="list-group list-group-flush mt-4">
