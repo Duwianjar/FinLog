@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
 
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark px-4">
@@ -58,8 +60,8 @@
         </section>
 
 
-        <section id="about" class="section bg-light">
-            <div class="container">
+        <section id="about">
+            <div class="container highlight-background">
                 <div class="row align-items-center">
                     <div id="image-aboute" class="col-lg-6 order-lg-1 order-2">
                         <img src="{{ asset('assets/img/finance2.png') }}" class="img-fluid rounded-circle" alt="FinLog Image">
@@ -75,11 +77,11 @@
 
 
 
-        <section id="benefits" class="section bg-light">
+        <section id="benefits">
             <div class="container">
                 <h2 class="mt-5 text-center gradient-secondary">Benefits of Using FinLog</h2>
                 <div class="row justify-content-center">
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                         <ul class="list-group list-group-flush mt-4">
                             <li class="list-group-item border-0">
                                 <i class="fas fa-check-circle text-success mr-2"></i> Easy tracking of income and expenses
@@ -106,7 +108,7 @@
         </section>
 
     </main>
-    <footer class="bg-light py-3 mt-5">
+    <footer>
         <div class="container text-center">
             <p class="text-gradient">&copy; 2024 ByteBuilders. All rights reserved.</p>
         </div>
@@ -117,4 +119,5 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </html>
