@@ -17,8 +17,13 @@
             @include('layouts.navigation')
 
             <main>
+                @if (url()->current() == url('/story') || url()->current() == url('/story/' . ucfirst(request()->segment(2))))
+                <div id="container-main" class="row px-5 py-4">
+                  <div class="col-lg-8 left" style="display: flex; justify-content: center; align-items: center;">
+              @else
                 <div class="row px-5 py-4">
-                    <div class="col-lg-8">
+                  <div class="col-lg-8">
+              @endif
                     @yield('content')
                 </div>
                 <div class="col-lg-4 container-dashboard text-center aside-profile">

@@ -164,6 +164,10 @@ margin-bottom: 10px;
 margin-top: 10px;
 text-align: right;
 }
+.post-like {
+margin-top: 10px;
+text-align: left;
+}
 
 .post-actions ul {
 list-style: none;
@@ -301,6 +305,11 @@ margin: 10px; /* add some margin around the image */
     background-color: transparent;
     border-color: transparent;
   }
+  .comment-btn:focus {
+    box-shadow: none;
+    outline: none;
+    border-color: transparent;
+  }
 
   .container-comment {
     width: 98%;
@@ -317,7 +326,7 @@ margin: 10px; /* add some margin around the image */
     margin-bottom: 5px;
   }
 
-  
+
 
   .comment-story{
     margin-top: -20px;

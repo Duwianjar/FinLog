@@ -27,6 +27,10 @@ class Story extends Model
     {
         return $this->hasMany(Comment::class, 'id_story')->latest();
     }
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'id_story')->latest();
+    }
 
     public static function boot()
     {

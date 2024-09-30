@@ -11,6 +11,7 @@ use App\Http\Controllers\Client\HistoryController;
 use App\Http\Controllers\Client\DepositoryController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\likeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('story', StoryController::class);
     Route::post('/story/search', [StoryController::class, 'search'])->name('story.search');
     Route::resource('comment', CommentController::class);
+    Route::resource('like', LikeController::class);
 });
 
 Route::middleware('authAdmin')->group(function () {

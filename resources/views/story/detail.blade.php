@@ -121,14 +121,83 @@
                     <img src="{{ asset($story->photo) }}" alt="story" class="img-story-post">
                 @endif
             </div>
-            <div class="post-actions">
-                <ul>
+            
+            <div class="d-flex justify-content-between">
+                <div class="post-like">
                     <!-- The button modal trigger -->
-                    <button type="button" class="btn-modal comment-btn" data-toggle="modal" data-target="#commentModal{{ $story->id }}">
-                        {{ count($story->comments) > 0 ? count($story->comments) : '' }}
-                        <img src="https://stockbit.com/icon/post-stream/comment.svg" alt="Comment Icon" />
-                    </button>
-                  </ul>
+                    @if(in_array(auth()->id(), array_column($story->likes->toArray(), 'id_user')))
+                        <button type="button" class="btn-modal comment-btn" id="like-btn{{ $story->id }}" data-id-story="{{ $story->id }}" data-id-user="{{ auth()->id() }}">
+                            <img src="https://stockbit.com/icon/post-stream/like-fill.svg" alt="Comment Icon" style="margin-bottom: 5px;" data-like="true" />
+                            <span id="like-count{{ $story->id }}" style="font-size: 13px;">{{ count($story->likes) > 0 ? count($story->likes) : 0 }} Likes</span>
+                        </button>
+                    @else
+                        <button type="button" class="btn-modal comment-btn" id="like-btn{{ $story->id }}" data-id-story="{{ $story->id }}" data-id-user="{{ auth()->id() }}">
+                            <img src="https://stockbit.com/icon/post-stream/like.svg" alt="Comment Icon" style="margin-bottom: 5px;" data-like="false" />
+                            <span id="like-count{{ $story->id }}" style="font-size: 13px;">{{ count($story->likes) > 0 ? count($story->likes) : 0 }} Likes</span>
+                        </button>
+                    @endif
+                    
+                    <script>
+                        document.getElementById('like-btn{{ $story->id }}').addEventListener('click', async function() {
+                            var img = this.querySelector('img');
+                            var likeCountSpan = this.querySelector('#like-count{{ $story->id }}');
+                            var isLiked = img.dataset.like === 'true';
+                            img.src = isLiked ? 'https://stockbit.com/icon/post-stream/like.svg' : 'https://stockbit.com/icon/post-stream/like-fill.svg';
+                            img.dataset.like = isLiked ? 'false' : 'true';
+                            
+                            // Update the like count
+                            var currentCount = parseInt(likeCountSpan.textContent);
+                            likeCountSpan.textContent = isLiked ? currentCount - 1 : currentCount + 1;
+                            likeCountSpan.textContent += ' Likes'; // Add the "Likes" text
+                            
+                            // Send request to like.store
+                            const idStory = this.dataset.idStory;
+                            const idUser = this.dataset.idUser;
+                            const likeType = 'story';
+                            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                            
+                            const formData = new FormData();
+                            formData.append('id_user', idUser);
+                            formData.append('id_story', idStory);
+                            formData.append('like_type', likeType);
+                            formData.append('_token', csrfToken);
+                            
+                            try {
+                                const response = await fetch('{{ route("like.store") }}', {
+                                    method: 'POST',
+                                    body: formData,
+                                });
+                                
+                                if (response.ok) {
+                                    if (isLiked) {
+                                        console.log('Like deleted successfully!');
+                                    } else {
+                                        console.log('Like sent successfully!');
+                                    }
+                                } else {
+                                    const errorMessage = await response.json();
+                                    console.error('Error sending like:', errorMessage.message);
+                                    if (errorMessage.errors) {
+                                        console.error('Error details:', errorMessage.errors);
+                                    }
+                                }
+                            } catch (error) {
+                                console.error('Error sending like:', error);
+                            }
+                        });
+                    </script>
+                    
+                </div>
+                <div class="post-actions">
+                    <ul>
+                        <!-- The button modal trigger -->
+                        <button type="button" class="btn-modal comment-btn" data-toggle="modal" data-target="#commentModal{{ $story->id }}">
+                            <span style="font-size: 13px;">{{ count($story->comments) > 0 ? count($story->comments) : '' }}</span>
+                            <img src="https://stockbit.com/icon/post-stream/comment.svg" alt="Comment Icon" />
+                        </button>
+                      </ul>
+                </div>
+
             </div>
             @if ($allcoment = $story->comments)
             @foreach ($allcoment as $latestComment)
