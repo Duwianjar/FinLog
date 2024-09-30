@@ -10,14 +10,14 @@
 @section('content')
     <div class="col-12 row">
         <h3 class="font-weight-bold text-gradient mb-2 my-das col-md-6">My Dahsboard </h3>
-        <p class=" col-md-6 notes">Notes for {{ now()->startOfMonth()->format('j M Y') }} - {{ now()->endOfMonth()->format('j M Y') }}</p>
+        <p class=" col-md-6 notes text-white">Notes for {{ now()->startOfMonth()->format('j M Y') }} - {{ now()->endOfMonth()->format('j M Y') }}</p>
     </div>
     <div class="p-4 my-3 container-dashboard row">
         <div class="col-md-4 d-flex align-items-center">
             <img class="circle-image" src="{{ asset('assets/img/money.png') }}" alt="Money">
             <div class="ml-3">
-                <p class="mb-0">Total Balance</p>
-                <p class="mt-0">Rp. {{ number_format($balance, 0, ',', '.') }}</p>
+                <p class="mb-0 text-white">Total Balance</p>
+                <p class="mt-0 text-white">Rp. {{ number_format($balance, 0, ',', '.') }}</p>
             </div>
         </div>
         <div class="row col-md-8">
@@ -25,14 +25,14 @@
             <div class="col-6 d-flex align-items-center">
                 <img class="circle-image" src="{{ asset('assets/img/earning.png') }}" alt="Money Earning">
                 <div class="ml-3">
-                    <p class="mb-0 ">Earning</p>
+                    <p class="mb-0 text-white">Earning</p>
                     <p class="mt-0 text-success">Rp. {{ number_format($earning, 0, ',', '.') }}</p>
                 </div>
             </div>
             <div class="col-6 d-flex align-items-center">
                 <img class="circle-image" src="{{ asset('assets/img/expenses.png') }}" alt="Money Expenses" >
                 <div class="ml-3">
-                    <p class="mb-0 ">Expenses</p>
+                    <p class="mb-0 text-white">Expenses</p>
                     <p class="mt-0 text-danger">Rp. {{ number_format($expense, 0, ',', '.') }}</p>
                 </div>
             </div>
@@ -68,7 +68,7 @@
     </div>
     <div class="p-4 container-dashboard row">
             <div class="col-md-4">
-                <h4 class="m2">All Transaction</h4>
+                <h4 class="m2 text-white">All Transaction</h4>
             </div>
             <div class="col-md-8 text-right">
                 <a href="{{ route('dashboard.month', ['month' => 1]) }}" class="btn btn-secondary m-2">1 Month</a>

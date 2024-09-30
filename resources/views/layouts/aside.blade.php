@@ -27,7 +27,7 @@
 @endif
 <hr>
 @if (Auth::user()->role != "admin")
-<h4 class="text-start">
+<h4 class="text-start text-white">
     Depository
 </h4>
 
