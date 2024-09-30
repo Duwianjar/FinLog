@@ -1,9 +1,24 @@
-#text-brand{
+#text-brand {
     font-weight: bold;
-    font-size:24px;
-    font-family: Montserrat, sans-serif; font-style: italic;
+    font-size: 24px;
+    font-family: Montserrat, sans-serif;
+    font-style: italic;
+}
+body {
+    background-color: #001f3f;
+}
+.list-group-item {
+    background-color: #001f3f;
+    color: #ffffff;
 }
 
+.highlight-background {
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(0, 31, 63, 1) 50%
+    );
+}
 .text-gradient {
     background: linear-gradient(to right, #315cac, #8f31ac);
     background-clip: text;
@@ -11,20 +26,22 @@
 }
 
 .navbar {
-    background: linear-gradient(to right, #315cac, #8f31ac);
+    background: #001f3f;
+    backdrop-filter: blur(50px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .dropdown-menu {
     border: transparent;
     background: linear-gradient(to right, #315cac, #8f31ac);
 }
-.dropdown-item{
-    color:white;
+.dropdown-item {
+    color: white;
     transition: transform 0.2s ease-in-out;
 }
 .dropdown-item:hover {
     background: transparent !important;
-    color:white;
+    color: white;
     transform: scale(1.1);
 }
 .navbar-nav .nav-item .menu {
@@ -51,9 +68,7 @@ main {
     padding: 80px 0;
 }
 
-
 @media (max-width: 992px) {
-
     .container-dashboard {
         width: auto !important;
     }
@@ -83,11 +98,10 @@ main {
 }
 
 .btn-primary:hover {
-    animation: gradientAnimation 0.7s linear infinite ;
+    animation: gradientAnimation 0.7s linear infinite;
     border-color: transparent;
     transform: scale(1.1);
 }
-
 
 @keyframes gradientAnimation {
     0% {
@@ -147,7 +161,7 @@ main {
 }
 
 .profil-nav {
-    display:none;
+    display: none;
 }
 
 @media (max-width: 992px) {
@@ -161,7 +175,6 @@ main {
 .aside-profile {
     height: auto;
 }
-
 
 .pararel {
     display: flex;
@@ -182,7 +195,6 @@ main {
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
     background-color: rgba(255, 255, 255, 0.12);
 }
-
 
 .a-profile {
     border-top-left-radius: 10px;
@@ -211,15 +223,13 @@ main {
     text-decoration: none;
 }
 
-.add-folder{
+.add-folder {
     transition: transform 0.3s;
-
 }
 .add-folder:hover {
     transform: scale(1.2);
     text-decoration: none;
 }
-
 
 .name {
     padding-top: 5px;
@@ -246,7 +256,6 @@ main {
     position: relative;
 }
 
-
 .bank {
     cursor: pointer;
 }
@@ -255,8 +264,3 @@ main {
     transform: scale(1.1);
     text-decoration: none;
 }
-
-
-
-
-
