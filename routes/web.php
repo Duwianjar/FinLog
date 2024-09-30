@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController as AuthAdmin;
 use App\Http\Controllers\Client\HistoryController;
 use App\Http\Controllers\Client\DepositoryController;
 use App\Http\Controllers\StoryController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('story', StoryController::class);
     Route::post('/story/search', [StoryController::class, 'search'])->name('story.search');
+    Route::resource('comment', CommentController::class);
 });
 
 Route::middleware('authAdmin')->group(function () {

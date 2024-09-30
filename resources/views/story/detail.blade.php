@@ -17,66 +17,23 @@
         <p class="text-danger mt-2">{{ session('error-story') }}</p>
     </div>
 @endif
-    <form action="{{ route('story.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="user-info">
-        <div class="user-avatar">
-            @if (Auth::user()->photo != null)
-                <img src="{{ asset(Auth::user()->photo) }}" alt="user" class="img-avatar">
-            @else
-                <img src="{{ asset('assets/img/user.png') }}" alt="user" class="img-avatar">
-            @endif
-        </div>
-        <input id="write" class="write" placeholder="Write your story here...">
-        <div id="name" class="user-name d-none">{{ Auth::user()->name }}</div>
-        <select id="story-comment" class="mx-2 custom-select d-none" name="allow_comments">
-            <option value="1">Everyone can comment</option>
-            <option value="0">No one can comment</option>
-        </select>
-        </div>
-        <!-- HTML -->
-        <div id="story-image" class="file-input-container d-none">
-            <input type="file" id="image-input" name="photo" accept="image/*" max-size="2048">
-            <label for="image-input">
-                <i class="fas fa-file-image"></i>
-                Select Image
-            </label>
-            <span id="file-size-alert" style="color: red; font-size: 12px;"></span>
-            <div id="image-preview-container" style="display: none;">
-                <img id="image-preview" src="" alt="Uploaded Image" style="max-width: 300px; max-height: 300px; margin-bottom: 5px;">
-                <span id="delete-icon" class="icon-delete"></span> <!-- Add this icon element -->
-            </div>
-        </div>
-        <textarea id="story-caption" name="caption" class="comment-box d-none" placeholder="Write your story here..."></textarea>
-        <div id="story-button" class="comment-tools d-none">
-        <button id="story-cancel" type="button" class="btn btn-secondary">Cancel</button>
-        <button type="submit" class="btn btn-primary mx-2">Post</button>
-        </div>
-    </form>
+
     <div class="post mt-4">
-        <form action="{{ route('story.search') }}" method="post">
-            @csrf
-            <div class="search-container">
-                <input class="search" type="text" placeholder="Search for story" name="search">
-                <button class="btn-primary btn-search">Search</button>
-            </div>
-        </form>
-        @foreach ($stories as $story )
+
+        @if ($story->id_user == Auth::user()->id || Auth::user()->role == "admin")
             <div class="dropdown">
                 <button class="dropbtn">&#8942;</button>
                 <div class="dropdown-content">
                     <!-- Button to trigger modal -->
-                    <a href="/story/{{ $story->id }}">&#128269; Detail</a>
-                    @if ($story->id_user == Auth::user()->id || Auth::user()->role == "admin")
                         @if (Auth::user()->role != "admin")
                             <a data-toggle="modal" data-target="#exampleModal-{{ $story->id }}">
                                 &#x270E;  Edit
                             </a>
                         @endif
                         <a data-toggle="modal" data-target="#exampleModaldelete-{{ $story->id }}" class="text-danger">&#x1F5D1; Delete</a>
-                    @endif
                 </div>
             </div>
+            @endif
             <!-- Modal -->
             <div class="modal fade" id="exampleModal-{{$story->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -173,8 +130,9 @@
                     </button>
                   </ul>
             </div>
-            @if ($latestComment = $story->comments()->first())
-            <div class="container-comment">
+            @if ($allcoment = $story->comments)
+            @foreach ($allcoment as $latestComment)
+            <div class="container-comment-detail">
                 @if ($latestComment->id_user == Auth::user()->id)
                 <div class="dropdown" style="margin-bottom:-50px;">
                     <button class="dropbtn">&#8942;</button>
@@ -221,6 +179,7 @@
                     </div>
                 </div>
             </div>
+@endforeach
         @endif
 
             <!-- The modal itself -->
@@ -271,13 +230,6 @@
             </div>
 
             <hr class="garis-story">
-        @endforeach
-        <!-- Add pagination links -->
-        {{ $stories->links() }}
-        <!-- Handle the case where there are no stories -->
-        @if ($stories->isEmpty())
-            <p>No stories found.</p>
-        @endif
     </div>
 </div>
 @endsection

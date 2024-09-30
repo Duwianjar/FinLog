@@ -19,7 +19,7 @@ class StoryController extends Controller
     {
         $depositoried = Depository::where('id_user', Auth::user()->id)->get();
         $user = Auth::user();
-        $stories = Story::latest()->paginate(5); // 10 items per page
+        $stories = Story::latest()->paginate(5);
         return view('story.index', compact('depositoried', 'user', 'stories'));
     }
 
@@ -76,9 +76,12 @@ class StoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Story $story)
+    public function show(string $id)
     {
-
+        $depositoried = Depository::where('id_user', Auth::user()->id)->get();
+        $user = Auth::user();
+        $story = Story::where('id', $id)->first();
+        return view('story.detail', compact('depositoried', 'user', 'story'));
     }
 
     public function search(Request $request)
@@ -138,6 +141,8 @@ class StoryController extends Controller
     public function destroy(string $id)
     {
         $story = Story::findOrFail($id);
+        // Delete comments associated with the story
+        $story->comments()->delete();
         $story->delete();
 
         return redirect('/story')->with('success-story', 'Story deleted successfully.');

@@ -28,12 +28,18 @@ class EarningController extends Controller
 
         $chartData = [];
         foreach ($categories as $category) {
-            $categoryEarnings = $groupedEarnings->get($category->id, collect()); 
+            $categoryEarnings = $groupedEarnings->get($category->id, collect());
             $chartData['labels'][] = $category->nama;
-            $chartData['data'][] = $categoryEarnings->sum('amount'); 
-            $chartData['backgroundColor'][] = '#' . substr(md5(rand()), 0, 6); 
+            $chartData['data'][] = $categoryEarnings->sum('amount');
+            $chartData['backgroundColor'][] = '#' . substr(md5(rand()), 0, 6);
         }
-        
+
+        if (empty($chartData['labels'])) {
+            $chartData['labels'][] = 'belum ada data';
+            $chartData['data'][] = 1;
+            $chartData['backgroundColor'][] = '#ccc';
+        }
+
         $depositoried = Depository::where('id_user', Auth::user()->id)->get();
         return view('client.earning', compact(
             'depositoried',
