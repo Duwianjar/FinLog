@@ -54,7 +54,7 @@
                             </span> <!-- Menyesuaikan margin -->
                             <!-- Pastikan ada satu spasi di sini -->
                         </h1>
-                        <p class="text-secondary animation-text">FinLog is your personal money management tool designed to help you keep track of your finances easily and effectively.</p>
+                        <p class="text-secondary animation-text">Alat manajemen keuangan yang membantu mengelola keuangan anda</p>
                         <a href="/login" class="btn btn-primary btn-lg">Get Started</a>
                     </div>
                     <div class="col-lg-6 d-none d-lg-block"> <!-- Hanya tampil di desktop -->
