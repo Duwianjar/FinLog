@@ -39,7 +39,7 @@ class StoryController extends Controller
         $validatedData = $request->validate([
             'allow_comments' => 'required',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'caption' => 'required|max:255',
+            'caption' => 'required|max:3000',
         ]);
 
         $validatedData['id_user'] = Auth::user()->id;

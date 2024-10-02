@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('stories', function (Blueprint $table) {
             $table->id();
             $table->string('photo');
-            $table->string('caption');
+            $table->text('caption');
             $table->integer('count_update')->default(0);
             $table->foreignId('id_user')->constrained('users');
             $table->boolean('allow_comments')->default(true); // Add this line

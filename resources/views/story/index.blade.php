@@ -241,7 +241,7 @@
                 </div>
 
             </div>
-            @if ($latestComment = $story->comments()->first())
+            @if ($latestComment = $story->commentlikes()->first())
             <div class="container-comment">
                 @if ($latestComment->id_user == Auth::user()->id)
                 <div class="dropdown" style="margin-bottom:-50px;">
@@ -260,8 +260,74 @@
                         <p><small>{{ $latestComment->created_at->format('j M y, g:i') }}</small></p>
                     </div>
                 </div>
-                <div class="comment-story">
-                    <p>{{  $latestComment->comment }}</p>
+                <div class="d-flex justify-content-between">
+                    <div class="comment-story">
+                        <p>{{  $latestComment->comment }}</p>
+                    </div>
+                    <div class="post-like" style="margin-top: -25px;">
+                        <!-- The button modal trigger -->
+                        @if(in_array(auth()->id(), array_column($latestComment->likes->toArray(), 'id_user')))
+                            <button type="button" class="btn-modal comment-btn" id="like-comment-btn{{ $latestComment->id }}" data-id-comment="{{ $latestComment->id }}" data-id-user="{{ auth()->id() }}">
+                                <img src="https://stockbit.com/icon/post-stream/like-fill.svg" alt="Comment Icon" style="margin-bottom: 5px;" data-like="true" />
+                                <span id="like-count{{ $latestComment->id }}" style="font-size: 13px;">{{ count($latestComment->likes) > 0 ? count($latestComment->likes) : 0 }}</span>
+                            </button>
+                        @else
+                            <button type="button" class="btn-modal comment-btn" id="like-comment-btn{{ $latestComment->id }}" data-id-comment="{{ $latestComment->id }}" data-id-user="{{ auth()->id() }}">
+                                <img src="https://stockbit.com/icon/post-stream/like.svg" alt="Comment Icon" style="margin-bottom: 5px;" data-like="false" />
+                                <span id="like-count{{ $latestComment->id }}" style="font-size: 13px;">{{ count($latestComment->likes) > 0 ? count($latestComment->likes) : 0 }}</span>
+                            </button>
+                        @endif
+    
+                        <script>
+                            document.getElementById('like-comment-btn{{ $latestComment->id }}').addEventListener('click', async function() {
+                                var img = this.querySelector('img');
+                                var likeCountSpan = this.querySelector('#like-count{{ $latestComment->id }}');
+                                var isLiked = img.dataset.like === 'true';
+                                img.src = isLiked ? 'https://stockbit.com/icon/post-stream/like.svg' : 'https://stockbit.com/icon/post-stream/like-fill.svg';
+                                img.dataset.like = isLiked ? 'false' : 'true';
+    
+                                // Update the like count
+                                var currentCount = parseInt(likeCountSpan.textContent);
+                                likeCountSpan.textContent = isLiked ? currentCount - 1 : currentCount + 1;
+    
+                                // Send request to like.store
+                                const idComment = this.dataset.idComment;
+                                const idUser = this.dataset.idUser;
+                                const likeType = 'comment';
+                                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    
+                                const formData = new FormData();
+                                formData.append('id_user', idUser);
+                                formData.append('id_comment', idComment);
+                                formData.append('like_type', likeType);
+                                formData.append('_token', csrfToken);
+    
+                                try {
+                                    const response = await fetch('{{ route("like.store") }}', {
+                                        method: 'POST',
+                                        body: formData,
+                                    });
+    
+                                    if (response.ok) {
+                                        if (isLiked) {
+                                            console.log('Like comment deleted successfully!');
+                                        } else {
+                                            console.log('Like comment sent successfully!');
+                                        }
+                                    } else {
+                                        const errorMessage = await response.json();
+                                        console.error('Error sending like comment:', errorMessage.message);
+                                        if (errorMessage.errors) {
+                                            console.error('Error comment details:', errorMessage.errors);
+                                        }
+                                    }
+                                } catch (error) {
+                                    console.error('Error sending like comment:', error);
+                                }
+                            });
+                        </script>
+    
+                    </div>
                 </div>
             </div>
             <div class="modal fade" id="exampleModaldelete-comment-{{ $latestComment->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

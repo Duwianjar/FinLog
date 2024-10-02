@@ -27,6 +27,14 @@ class Story extends Model
     {
         return $this->hasMany(Comment::class, 'id_story')->latest();
     }
+    public function commentlikes()
+    {
+        return $this->hasMany(Comment::class, 'id_story')
+                    ->withCount('likes')
+                    ->orderBy('likes_count', 'desc');
+    }
+
+    // di model Comment
     public function likes()
     {
         return $this->hasMany(Like::class, 'id_story')->latest();

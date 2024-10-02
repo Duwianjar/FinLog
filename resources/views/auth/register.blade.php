@@ -15,7 +15,7 @@
 
 <body class="align-items-center justify-content-center">
 
-    <div class="container">
+    <div class="container py-5">
         <div class="row">
             <div class="col-lg-6 ">
                 <img src="{{ asset('assets/img/auth.png') }}" alt="MoneyWise App" class="img-fluid">

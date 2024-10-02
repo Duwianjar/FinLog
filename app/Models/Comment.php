@@ -22,6 +22,10 @@ class Comment extends Model
     {
         return $this->belongsTo(Story::class, 'id_story');
     }
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'id_comment')->latest();
+    }
 
     public static function boot()
     {
