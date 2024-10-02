@@ -47,15 +47,21 @@
         <section id="home" class="section">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-lg-6 px-5">
-                        <h1 class="text-light font-weight-bold typing-animation text-title">Manajemen Keuangan anda <br> dengan <span class="text-gradient">Finlog</span></h1>
+                    <div class="col-lg-6 col-md-8 col-sm-12 px-5 text-center text-lg-left">
+                        <h1 class="text-light font-weight-bold">
+                            <span class="d-block mt-3">Manajemen Keuangan anda dengan
+                                <span class="text-gradient"> Finlog</span>
+                            </span> <!-- Menyesuaikan margin -->
+                            <!-- Pastikan ada satu spasi di sini -->
+                        </h1>
                         <p class="text-secondary animation-text">FinLog is your personal money management tool designed to help you keep track of your finances easily and effectively.</p>
-                        <a href="/login" class="btn btn-primary btn-lg ">Get Started</a>
+                        <a href="/login" class="btn btn-primary btn-lg">Get Started</a>
                     </div>
-                    <div class="col-lg-6 ">
+                    <div class="col-lg-6 d-none d-lg-block"> <!-- Hanya tampil di desktop -->
                         <img src="{{ asset('assets/img/finance.png') }}" style="width: 60%;" alt="FinLog App" class="img-fluid">
                     </div>
                 </div>
+            </div>
             </div>
         </section>
 
@@ -68,7 +74,7 @@
                     </div>
                     <div id="title-about" class="col-lg-6 order-lg-2 order-1 px-5">
                         <h1 class="section-title text-light mt-5">About <span class="text-gradient">Finlog</span></h1>
-                        <p class="section-description text-light">FinLog was created to address the common challenges people face in managing their personal finances. Our goal is to provide an easy-to-use platform that helps users track their income, expenses, and savings, and make informed financial decisions.</p>
+                        <p class="section-description text-light">FinLog dibuat untuk mengatasi tantangan umum yang dihadapi orang-orang dalam mengelola keuangan pribadi mereka. Tujuan kami adalah menyediakan platform yang mudah digunakan yang membantu pengguna melacak pendapatan, pengeluaran, dan tabungan mereka, serta membuat keputusan keuangan yang tepat.</p>
                         <a href="#" class="btn btn-secondary">Need Help</a>
                     </div>
                 </div>
@@ -81,25 +87,25 @@
             <div class="container">
                 <h2 class="mt-5 text-center text-light">Benefits of Using <span class="text-gradient">Finlog</span></h2>
                 <div class="row justify-content-center">
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <ul class="list-group list-group-flush mt-4">
                             <li class="list-group-item border-0">
-                                <i class="fas fa-check-circle text-success mr-2"></i> Easy tracking of income and expenses
+                                <i class="fas fa-check-circle text-success mr-2"></i> Pelacakan pemasukan dan pengeluaran yang mudah
                             </li>
                             <li class="list-group-item border-0">
-                                <i class="fas fa-check-circle text-success mr-2"></i> Detailed financial reports
+                                <i class="fas fa-check-circle text-success mr-2"></i> Laporan keuangan yang rinci
                             </li>
                             <li class="list-group-item border-0">
-                                <i class="fas fa-check-circle text-success mr-2"></i> Personalized budget planning
+                                <i class="fas fa-check-circle text-success mr-2"></i> Anggaran peraencanaan yang personal
                             </li>
                             <li class="list-group-item border-0">
-                                <i class="fas fa-check-circle text-success mr-2"></i> Financial goal setting and tracking
+                                <i class="fas fa-check-circle text-success mr-2"></i> Penetapan dan pelacakan tujuan keuangan
                             </li>
                             <li class="list-group-item border-0">
-                                <i class="fas fa-check-circle text-success mr-2"></i> User-friendly interface
+                                <i class="fas fa-check-circle text-success mr-2"></i> Antarmuka pengguna yang ramah
                             </li>
                             <li class="list-group-item border-0">
-                                <i class="fas fa-check-circle text-success mr-2"></i> Secure and private data management
+                                <i class="fas fa-check-circle text-success mr-2"></i> Manajemen data yang aman dan pribadi
                             </li>
                         </ul>
                     </div>
@@ -109,9 +115,7 @@
 
     </main>
     <footer>
-        <div class="container text-center">
-            <p class="text-gradient">&copy; 2024 ByteBuilders. All rights reserved.</p>
-        </div>
+        @include('footer.footer')
     </footer>
 </body>
 <script src="{{ asset('assets/js/main.js') }}"></script>

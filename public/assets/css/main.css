@@ -81,6 +81,12 @@ main {
     .navbar-nav .nav-item .nav-menu:hover {
         transform: scale(1.2) translateX(50px) !important;
     }
+    .text-center-mobile {
+        text-align: center;
+    }
+    .mt-mobile-3 {
+        margin-top: 3rem;
+    }
 }
 @media (max-width: 500px) {
     .navbar-nav .nav-item .nav-menu:hover {
