@@ -38,13 +38,13 @@ class Story extends Model
 
         static::creating(function ($story) {
             if (!$story->created_at) {
-                $story->created_at = now()->subHours(5);
+                $story->created_at = now()->subHours(17);
             }
         });
 
         static::updating(function ($story) {
             if (!$story->updated_at) {
-                $story->updated_at = now()->subHours(5);
+                $story->updated_at = now()->subHours(17);
             }
         });
     }
