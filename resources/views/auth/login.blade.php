@@ -13,15 +13,15 @@
 
 </head>
 
-<body class="align-items-center justify-content-center">
+<body class="align-items-center justify-content-center py-5">
 
-    <div class="container">
+    <div class="container py-5">
         <div class="row">
             <div class="col-lg-6 ">
                 <img src="{{ asset('assets/img/login.png') }}" alt="MoneyWise App" class="img-fluid">
             </div>
             <div class="col-lg-6 mt-5">
-                <div class="form-container mt-5">
+                <div class="form-container mt-4">
                     <h1 class="form-title">Login</h1>
                     <div class="mb-4">
                         @if (session('status'))

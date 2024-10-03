@@ -27,6 +27,14 @@ class Story extends Model
     {
         return $this->hasMany(Comment::class, 'id_story')->latest();
     }
+    public function commentlikes()
+    {
+        return $this->hasMany(Comment::class, 'id_story')
+                    ->withCount('likes')
+                    ->orderBy('likes_count', 'desc');
+    }
+
+    // di model Comment
     public function likes()
     {
         return $this->hasMany(Like::class, 'id_story')->latest();
@@ -38,13 +46,13 @@ class Story extends Model
 
         static::creating(function ($story) {
             if (!$story->created_at) {
-                $story->created_at = now()->subHours(5);
+                $story->created_at = now()->subHours(17);
             }
         });
 
         static::updating(function ($story) {
             if (!$story->updated_at) {
-                $story->updated_at = now()->subHours(5);
+                $story->updated_at = now()->subHours(17);
             }
         });
     }

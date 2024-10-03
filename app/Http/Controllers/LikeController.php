@@ -27,48 +27,87 @@ class LikeController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    try {
-        // Cek input
-        $request->validate([
-            'id_user' => 'required|integer',
-            'id_story' => 'required|integer',
-            'like_type' => 'required|string',
-        ]);
+    {
+        try {
+            $request->validate([
+                'id_story' => 'nullable|integer',
+                'id_comment' => 'nullable|integer'
 
-        // Cek apakah user sudah menyukai postingan
-        $like = Like::where('id_user', $request->input('id_user'))
-                    ->where('id_story', $request->input('id_story'))
-                    ->first();
+            ]);
 
-        if ($like) {
-            // Jika user sudah menyukai postingan, hapus like
-            $like->delete();
-            return response()->json(['message' => 'Like dihapus'], 200);
-        } else {
-            // Jika user belum menyukai postingan, buat like baru
-            $like = new Like();
-            $like->id_user = $request->input('id_user');
-            $like->id_story = $request->input('id_story');
-            $like->like_type = $request->input('like_type');
+            // Cek input
+            if ($request->input('id_story')) {
+                $request->validate([
+                    'id_user' => 'required|integer',
+                    'id_story' => 'required|integer',
+                    'like_type' => 'required|string',
+                ]);
+                // Cek apakah user sudah menyukai postingan
+                $like = Like::where('id_user', $request->input('id_user'))
+                        ->where('id_story', $request->input('id_story'))
+                        ->first();
 
-            try {
-                // Try to save the Like model
-                $like->save();
-                return response()->json(['message' => 'Like berhasil'], 201);
-            } catch (\Illuminate\Database\QueryException $e) {
-                // Catch database query exceptions
-                return response()->json(['message' => 'Error saving like', 'errors' => $e->getMessage()], 500);
+                if ($like) {
+                    // Jika user sudah menyukai postingan, hapus like
+                    $like->delete();
+                    return response()->json(['message' => 'Like dihapus'], 200);
+                } else {
+                    // Jika user belum menyukai postingan, buat like baru
+                    $like = new Like();
+                    $like->id_user = $request->input('id_user');
+                    $like->id_story = $request->input('id_story');
+                    $like->like_type = $request->input('like_type');
+
+                    try {
+                        // Try to save the Like model
+                        $like->save();
+                        return response()->json(['message' => 'Like berhasil'], 201);
+                    } catch (\Illuminate\Database\QueryException $e) {
+                        // Catch database query exceptions
+                        return response()->json(['message' => 'Error saving like', 'errors' => $e->getMessage()], 500);
+                    }
+                }
+            } elseif ($request->input('id_comment')) {
+                $request->validate([
+                    'id_user' => 'required|integer',
+                    'id_comment' => 'required|integer',
+                    'like_type' => 'required|string',
+                ]);
+
+                // Cek apakah user sudah menyukai commentar
+                $like = Like::where('id_user', $request->input('id_user'))
+                        ->where('id_comment', $request->input('id_comment'))
+                        ->first();
+
+                if ($like) {
+                    // Jika user sudah menyukai postingan, hapus like
+                    $like->delete();
+                    return response()->json(['message' => 'Like dihapus'], 200);
+                } else {
+                    // Jika user belum menyukai postingan, buat like baru
+                    $like = new Like();
+                    $like->id_user = $request->input('id_user');
+                    $like->id_comment = $request->input('id_comment');
+                    $like->like_type = $request->input('like_type');
+
+                    try {
+                        // Try to save the Like model
+                        $like->save();
+                        return response()->json(['message' => 'Like berhasil'], 201);
+                    } catch (\Illuminate\Database\QueryException $e) {
+                        // Catch database query exceptions
+                        return response()->json(['message' => 'Error saving like', 'errors' => $e->getMessage()], 500);
+                    }
+                }
             }
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Return a 422 Unprocessable Entity status code for validation errors
+            return response()->json(['message' => 'Validation error', 'errors' => $e->getMessage()], 422);
+        } catch (\Exception $e) {
+            // Return a 500 Internal Server Error status code for other exceptions
+            return response()->json(['message' => 'Internal Server Error'], 500);
         }
-    } catch (\Illuminate\Validation\ValidationException $e) {
-        // Return a 422 Unprocessable Entity status code for validation errors
-        return response()->json(['message' => 'Validation error', 'errors' => $e->getMessage()], 422);
-    } catch (\Exception $e) {
-        // Return a 500 Internal Server Error status code for other exceptions
-        return response()->json(['message' => 'Internal Server Error'], 500);
     }
-}
     /**
      * Display the specified resource.
      */

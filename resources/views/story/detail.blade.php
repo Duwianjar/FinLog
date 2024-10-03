@@ -19,6 +19,7 @@
 @endif
 
     <div class="post mt-4">
+        <a href="{{ url('story')}}"class="btn btn-primary mb-4"><< Kembali</a>
 
         @if ($story->id_user == Auth::user()->id || Auth::user()->role == "admin")
             <div class="dropdown">
@@ -121,7 +122,7 @@
                     <img src="{{ asset($story->photo) }}" alt="story" class="img-story-post">
                 @endif
             </div>
-            
+
             <div class="d-flex justify-content-between">
                 <div class="post-like">
                     <!-- The button modal trigger -->
@@ -136,7 +137,7 @@
                             <span id="like-count{{ $story->id }}" style="font-size: 13px;">{{ count($story->likes) > 0 ? count($story->likes) : 0 }} Likes</span>
                         </button>
                     @endif
-                    
+
                     <script>
                         document.getElementById('like-btn{{ $story->id }}').addEventListener('click', async function() {
                             var img = this.querySelector('img');
@@ -144,49 +145,49 @@
                             var isLiked = img.dataset.like === 'true';
                             img.src = isLiked ? 'https://stockbit.com/icon/post-stream/like.svg' : 'https://stockbit.com/icon/post-stream/like-fill.svg';
                             img.dataset.like = isLiked ? 'false' : 'true';
-                            
+
                             // Update the like count
                             var currentCount = parseInt(likeCountSpan.textContent);
                             likeCountSpan.textContent = isLiked ? currentCount - 1 : currentCount + 1;
                             likeCountSpan.textContent += ' Likes'; // Add the "Likes" text
-                            
+
                             // Send request to like.store
                             const idStory = this.dataset.idStory;
                             const idUser = this.dataset.idUser;
                             const likeType = 'story';
                             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                            
+
                             const formData = new FormData();
                             formData.append('id_user', idUser);
                             formData.append('id_story', idStory);
                             formData.append('like_type', likeType);
                             formData.append('_token', csrfToken);
-                            
+
                             try {
                                 const response = await fetch('{{ route("like.store") }}', {
                                     method: 'POST',
                                     body: formData,
                                 });
-                                
+
                                 if (response.ok) {
                                     if (isLiked) {
-                                        console.log('Like deleted successfully!');
+                                        console.log('Like story deleted successfully!');
                                     } else {
-                                        console.log('Like sent successfully!');
+                                        console.log('Like story sent successfully!');
                                     }
                                 } else {
                                     const errorMessage = await response.json();
-                                    console.error('Error sending like:', errorMessage.message);
+                                    console.error('Error sending like story:', errorMessage.message);
                                     if (errorMessage.errors) {
-                                        console.error('Error details:', errorMessage.errors);
+                                        console.error('Error story details:', errorMessage.errors);
                                     }
                                 }
                             } catch (error) {
-                                console.error('Error sending like:', error);
+                                console.error('Error sending like story:', error);
                             }
                         });
                     </script>
-                    
+
                 </div>
                 <div class="post-actions">
                     <ul>
@@ -199,34 +200,100 @@
                 </div>
 
             </div>
-            @if ($allcoment = $story->comments)
-            @foreach ($allcoment as $latestComment)
+            @if ($allcoment = $story->commentlikes)
+            @foreach ($allcoment as $comment)
             <div class="container-comment-detail">
-                @if ($latestComment->id_user == Auth::user()->id)
+                @if ($comment->id_user == Auth::user()->id)
                 <div class="dropdown" style="margin-bottom:-50px;">
                     <button class="dropbtn">&#8942;</button>
                     <div class="dropdown-content">
-                        <a data-toggle="modal" data-target="#exampleModaldelete-comment-{{ $latestComment->id }}" class="text-danger">&#x1F5D1; Delete</a>
+                        <a data-toggle="modal" data-target="#exampleModaldelete-comment-{{ $comment->id }}" class="text-danger">&#x1F5D1; Delete</a>
                     </div>
                 </div>
                 @endif
                 <div class="post-info mt-2">
                     <div class="post-avatar">
-                        <img src="{{ asset($latestComment->user->photo ?? 'assets/img/user.png') }}" alt="user" class="img-avatar-post">
+                        <img src="{{ asset($comment->user->photo ?? 'assets/img/user.png') }}" alt="user" class="img-avatar-post">
                     </div>
                     <div class="post-user">
-                        <h5>{{ $latestComment->user->name }}</h5>
-                        <p><small>{{ $latestComment->created_at->format('j M y, g:i') }}</small></p>
+                        <h5>{{ $comment->user->name }}</h5>
+                        <p><small>{{ $comment->created_at->format('j M y, g:i') }}</small></p>
                     </div>
                 </div>
+                <div class="d-flex justify-content-between">
                 <div class="comment-story">
-                    <p>{{  $latestComment->comment }}</p>
+                    <p>{{  $comment->comment }}</p>
+                </div>
+                <div class="post-like" style="margin-top: -25px;">
+                    <!-- The button modal trigger -->
+                    @if(in_array(auth()->id(), array_column($comment->likes->toArray(), 'id_user')))
+                        <button type="button" class="btn-modal comment-btn" id="like-comment-btn{{ $comment->id }}" data-id-comment="{{ $comment->id }}" data-id-user="{{ auth()->id() }}">
+                            <img src="https://stockbit.com/icon/post-stream/like-fill.svg" alt="Comment Icon" style="margin-bottom: 5px;" data-like="true" />
+                            <span id="like-count{{ $comment->id }}" style="font-size: 13px;">{{ count($comment->likes) > 0 ? count($comment->likes) : 0 }}</span>
+                        </button>
+                    @else
+                        <button type="button" class="btn-modal comment-btn" id="like-comment-btn{{ $comment->id }}" data-id-comment="{{ $comment->id }}" data-id-user="{{ auth()->id() }}">
+                            <img src="https://stockbit.com/icon/post-stream/like.svg" alt="Comment Icon" style="margin-bottom: 5px;" data-like="false" />
+                            <span id="like-count{{ $comment->id }}" style="font-size: 13px;">{{ count($comment->likes) > 0 ? count($comment->likes) : 0 }}</span>
+                        </button>
+                    @endif
+
+                    <script>
+                        document.getElementById('like-comment-btn{{ $comment->id }}').addEventListener('click', async function() {
+                            var img = this.querySelector('img');
+                            var likeCountSpan = this.querySelector('#like-count{{ $comment->id }}');
+                            var isLiked = img.dataset.like === 'true';
+                            img.src = isLiked ? 'https://stockbit.com/icon/post-stream/like.svg' : 'https://stockbit.com/icon/post-stream/like-fill.svg';
+                            img.dataset.like = isLiked ? 'false' : 'true';
+
+                            // Update the like count
+                            var currentCount = parseInt(likeCountSpan.textContent);
+                            likeCountSpan.textContent = isLiked ? currentCount - 1 : currentCount + 1;
+
+                            // Send request to like.store
+                            const idComment = this.dataset.idComment;
+                            const idUser = this.dataset.idUser;
+                            const likeType = 'comment';
+                            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                            const formData = new FormData();
+                            formData.append('id_user', idUser);
+                            formData.append('id_comment', idComment);
+                            formData.append('like_type', likeType);
+                            formData.append('_token', csrfToken);
+
+                            try {
+                                const response = await fetch('{{ route("like.store") }}', {
+                                    method: 'POST',
+                                    body: formData,
+                                });
+
+                                if (response.ok) {
+                                    if (isLiked) {
+                                        console.log('Like comment deleted successfully!');
+                                    } else {
+                                        console.log('Like comment sent successfully!');
+                                    }
+                                } else {
+                                    const errorMessage = await response.json();
+                                    console.error('Error sending like comment:', errorMessage.message);
+                                    if (errorMessage.errors) {
+                                        console.error('Error comment details:', errorMessage.errors);
+                                    }
+                                }
+                            } catch (error) {
+                                console.error('Error sending like comment:', error);
+                            }
+                        });
+                    </script>
+
                 </div>
             </div>
-            <div class="modal fade" id="exampleModaldelete-comment-{{ $latestComment->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            </div>
+            <div class="modal fade" id="exampleModaldelete-comment-{{ $comment->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form action="{{ route('comment.destroy', $latestComment->id) }}" method="POST">
+                        <form action="{{ route('comment.destroy', $comment->id) }}" method="POST">
                             @method('DELETE')
                             @csrf
                             <div class="modal-header">
@@ -304,106 +371,6 @@
 @endsection
 
 @push('js')
-<script>
-const inputFile = document.getElementById('image-input');
-const fileSizeAlert = document.getElementById('file-size-alert');
-
-inputFile.addEventListener('change', (e) => {
-  const fileSize = e.target.files[0].size;
-  const maxSize = 2048 * 1024; // 2048 KB
-
-  if (fileSize > maxSize) {
-    fileSizeAlert.textContent = `File size exceeds maximum limit of 2048 KB`;
-  } else {
-    fileSizeAlert.textContent = '';
-  }
-});
-
-const imageInput = document.getElementById('image-input');
-const imagePreviewContainer = document.getElementById('image-preview-container');
-const imagePreview = document.getElementById('image-preview');
-
-imageInput.addEventListener('change', (e) => {
-    const file = imageInput.files[0];
-    const reader = new FileReader();
-    reader.onload = (event) => {
-        const imageDataUrl = event.target.result;
-        imagePreview.src = imageDataUrl;
-        imagePreviewContainer.style.display = 'block'; // show the container when image is uploaded
-    };
-    reader.readAsDataURL(file);
-});
-
-const deleteIcon = document.getElementById('delete-icon');
-
-deleteIcon.addEventListener('click', () => {
-  // Reset inputted image
-  imagePreview.src = '';
-  imagePreviewContainer.style.display = 'none'; // hide the container
-  inputFile.value = ''; // reset the file input field
-});
-
-const textarea = document.querySelector('.comment-box');
-
-textarea.addEventListener('input', (e) => {
-  const inputValue = e.target.value;
-  const allowedChars = /^[a-zA-Z0-9,._\-()\s]+$/;
-  if (!allowedChars.test(inputValue)) {
-    e.target.value = inputValue.replace(/[^a-zA-Z0-9,._\-()\s]/g, '');
-  }
-});
-
-// Select all elements with aria-label "Pagination Navigation"
-const paginationContainers = document.querySelectorAll('[aria-label="Pagination Navigation"]');
-
-// Loop through each container and hide the SVG elements inside
-paginationContainers.forEach(container => {
-  const svgs = container.querySelectorAll('svg');
-  svgs.forEach(svg => {
-    svg.style.display = 'none';
-  });
-});
-
-
-const url = window.location.href;
-if (url.includes('/search')) {
-  const paginationNav = document.querySelector('[aria-label="Pagination Navigation"]');
-  paginationNav.style.display = 'none';
-}
-
-</script>
-<script>
-    const writeInput = document.getElementById('write');
-
-    writeInput.addEventListener('focus', function() {
-        this.classList.add('d-none');
-        document.getElementById('story-button').classList.remove('d-none');
-        document.getElementById('story-caption').classList.remove('d-none');
-        document.getElementById('story-image').classList.remove('d-none');
-        document.getElementById('story-comment').classList.remove('d-none');
-        document.getElementById('name').classList.remove('d-none');
-    });
-
-    writeInput.addEventListener('click', function() {
-        this.classList.add('d-none');
-        document.getElementById('story-button').classList.remove('d-none');
-        document.getElementById('story-caption').classList.remove('d-none');
-        document.getElementById('story-image').classList.remove('d-none');
-        document.getElementById('story-comment').classList.remove('d-none');
-        document.getElementById('name').classList.remove('d-none');
-    });
-
-    const cancel = document.getElementById('story-cancel');
-
-    cancel.addEventListener('click', function() {
-        writeInput.classList.remove('d-none');
-        document.getElementById('story-button').classList.add('d-none');
-        document.getElementById('story-caption').classList.add('d-none');
-        document.getElementById('story-image').classList.add('d-none');
-        document.getElementById('story-comment').classList.add('d-none');
-        document.getElementById('name').classList.add('d-none');
-    });
-</script>
 
   <script>
     // Fungsi untuk mengubah kelas berdasarkan lebar layar
